@@ -1,0 +1,37 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  createdAT DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  name      String
+}
+
+model Genre {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @unique
+  createdAT DateTime @default(now()) @map("created_at")
+  movieId   String?  @db.ObjectId
+  movie     Movie?   @relation(fields: [movieId], references: [id])
+}
+
+model Movie {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String   @unique
+  coverImage  String
+  rating      Int
+  description String
+  genre       Genre[]
+  createdAT   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @map("updated_at")
+}

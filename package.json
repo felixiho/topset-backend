@@ -1,0 +1,95 @@
+{
+  "name": "topset-backend",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "nodemon",
+    "dev:start:public": "ts-node ./src/server/public.ts",
+    "dev:start:internal": "ts-node ./src/server/internal.ts",
+    "dev:concurrently": "concurrently yarn:dev:start:*",
+    "env:development": "ln -sf .env.local .env",
+    "env:staging": "ln -sf .env.staging .env",
+    "env:staging-oms": "ln -sf .env.oms .env",
+    "env:test": "ln -sf .env.test .env",
+    "env:production": "ln -sf .env.prod .env",
+    "build": "rm -rf ./build && prisma generate && tsc",
+    "start:public": "node ./build/server/public.js",
+    "start:internal": "node ./build/server/internal.js",
+    "prisma": "dotenv -e .secret -e .env prisma",
+    "jest": "NODE_ENV=test LOG_LEVEL=error jest",
+    "test": "NODE_ENV=test LOG_LEVEL=error jest"
+  },
+  "dependencies": { 
+    "@prisma/client": "^3.15.1",  
+    "@types/bcrypt": "^5.0.0",
+    "@types/luxon": "^1.24.1",
+    "@types/nanoid-dictionary": "^4.2.0",
+    "@types/node-uuid": "^0.0.28",
+    "bcrypt": "^5.0.1",
+    "bossbat": "^1.2.0",
+    "cache-manager": "^3.4.0", 
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "class-validator-jsonschema": "^3.1.1",
+    "cors": "^2.8.5",
+    "deepmerge": "^4.2.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",  
+    "isomorphic-unfetch": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "luxon": "^1.24.1",
+    "mkdirp": "^1.0.4",  
+    "nanoid": "^3.1.22",
+    "nanoid-dictionary": "^4.3.0",
+    "node-uuid": "^1.4.8", 
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.9.0",
+    "routing-controllers-openapi": "^3.1.0", 
+    "typedi": "^0.10.0",
+    "winston": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/analytics-node": "^3.1.9",
+    "@types/cache-manager": "^2.10.3",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.11",
+    "@types/jest": "^26.0.3",
+    "@types/supertest": "^2.0.10",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "concurrently": "^5.2.0",
+    "dotenv-cli": "^3.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.20.1",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "lint-staged": "^10.2.9",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "prisma": "^3.15.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.1.1",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "8.7.0",
+    "typed-emitter": "^2.1.0",
+    "typescript": "4.7.2"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{css,json,md}": [
+      "prettier --write"
+    ],
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  }
+}
