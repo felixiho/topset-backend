@@ -17,5 +17,13 @@ export class GenreRepository {
     return await prisma.genre.findMany()
   }
 
+  async findGenreById(id: string): Promise<Genre|null> {
+    return await prisma.genre.findFirst({
+        where:{
+            id
+        }
+    })
+  }
+
 }
 

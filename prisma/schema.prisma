@@ -21,8 +21,7 @@ model Genre {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String   @unique
   createdAT DateTime @default(now()) @map("created_at")
-  movieId   String?  @db.ObjectId
-  movie     Movie?   @relation(fields: [movieId], references: [id])
+  movie     Movie[]
 }
 
 model Movie {
@@ -31,7 +30,8 @@ model Movie {
   coverImage  String
   rating      Int
   description String
-  genre       Genre[]
+  genreId     String @db.ObjectId 
+  genre       Genre    @relation(fields: [genreId], references: [id])
   createdAT   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @default(now()) @map("updated_at")
 }
