@@ -18,7 +18,8 @@ export class MoviesRepository {
       include: {
         genre: {
           select: {
-            title: true
+            title: true,
+            id: true
           }
         }
       }
@@ -26,7 +27,7 @@ export class MoviesRepository {
   }
 
   async findAllMoviesByGenre(genre:string[], skip:number, take:number): Promise<Movie[]> {
-    const genreIds = genre.map(genre => ({id: genre}))
+    const genreIds = genre.map(genre => ({id: genre})) 
     return await prisma.movie.findMany({
       skip,
       take,
@@ -38,7 +39,8 @@ export class MoviesRepository {
       include: {
         genre: {
           select: {
-            title: true
+            title: true,
+            id: true
           }
         }
       }
@@ -56,7 +58,8 @@ export class MoviesRepository {
       include: {
         genre: {
           select: {
-            title: true
+            title: true,
+            id: true
           }
         }
       }

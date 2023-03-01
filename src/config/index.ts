@@ -16,6 +16,5 @@ export default config.load({
   LOG_CHANNEL: (process.env.LOG_CHANNEL as string) || 'console',
   LOG_LEVEL: (process.env.LOG_LEVEL as string) || 'info',
   LOG_NAME: (process.env.LOG_NAME as string) || 'topset-backend', 
-  // Mainly set so we can validate it's present.
   DATABASE_URL: (process.env.DATABASE_URL as string) || false, 
 })

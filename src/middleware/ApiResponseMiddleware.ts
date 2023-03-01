@@ -14,9 +14,7 @@ export class ApiResponseMiddleware implements InterceptorInterface {
   /**
    * Wraps a successful response in the common api wrapper.
    */
-  intercept(_: any, content: any): ApiSuccessResponse | null | undefined {
-    // Don't wrap null or undefined because it interferes with the `@OnNull`
-    // and `@OnUndefined` decorators.
+  intercept(_: any, content: any): ApiSuccessResponse | null | undefined { 
     if (content === null || content === undefined) {
       return content
     }

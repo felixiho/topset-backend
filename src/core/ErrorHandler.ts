@@ -55,11 +55,7 @@ export class ErrorHandler {
     const { name, message, stack, ...rest } = error
     return { name, message, isError: true, data: rest, stack }
   }
-
-  /**
-   * When not in isDevelopment only expose error message and name for
-   * HttpError and ApiError
-   */
+ 
   protected processUnexpectedError(error: Error): HandleErrorResult {
     const json = this.isDevelopment
       ? this.wrapJsonError(this.processJsonError(error))
@@ -68,10 +64,7 @@ export class ErrorHandler {
           name: 'InternalError',
           message: 'An unexpected error occurred',
         }
-
-    // errors generated from class-validation package includes a status code (eg. 400) which should be
-    // honored as the problems is an invalid client request input instead of a generic internal server error,
-    // this is misleading for api client packages
+ 
     return {
       status: json.data?.statusCode ?? 500,
       json,
@@ -119,10 +112,7 @@ export class ErrorHandler {
    *
    * @see https://github.com/typestack/routing-controllers/issues/144
    */
-  public processJsonError(error: any) {
-    // Unneeded code is commented for context when comparing to the original
-    // if (!this.isDefaultErrorHandlingEnabled)
-    //   return error;
+  public processJsonError(error: any) { 
 
     if (typeof error.toJSON === 'function') return error.toJSON()
 
@@ -146,12 +136,7 @@ export class ErrorHandler {
             key !== 'httpCode'
         )
         .forEach((key) => (processedError[key] = (error as any)[key]))
-
-      // if (this.errorOverridingMap)
-      //   Object.keys(this.errorOverridingMap)
-      //     .filter(key => name === key)
-      //     .forEach(key => processedError = this.merge(processedError, this.errorOverridingMap[key]));
-
+ 
       return Object.keys(processedError).length > 0 ? processedError : undefined
     }
 
@@ -161,9 +146,7 @@ export class ErrorHandler {
   /**
    * Adapted from BaseDriver
    */
-  public processTextError(error: any) {
-    // if (!this.isDefaultErrorHandlingEnabled)
-    //   return error;
+  public processTextError(error: any) { 
 
     if (error instanceof Error) {
       if (this.isDevelopment && error.stack) {

@@ -18,11 +18,7 @@ export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {
     const isDevelopment = config.get('ENV') !== 'production'
     this.errorHandler = new ErrorHandler(isDevelopment)
   }
-
-  /**
-   * Formats any thrown error in the common api error format. The default error
-   * handler must be turned off for this to work.
-   */
+ 
   error(error: any, _: unknown, response: Response, next: NextFunction) {
     if (typeof error === 'string') {
       error = new Error(error)

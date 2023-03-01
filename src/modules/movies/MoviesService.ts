@@ -19,7 +19,7 @@ export class MoviesService {
     private genreRepo: GenreRepository
 
     constructor() {
-        this.moviesPerPage = 10
+        this.moviesPerPage = 9
     }
 
     async addMovie(body: AddMovieType): Promise<Movie[]> {
@@ -29,13 +29,13 @@ export class MoviesService {
                 genres: body.genre
             })
             throw new NotFoundError("Invalid genre selected.")
-        } 
+        }
         await this.movieRepo.addMovie({
             title: body.title,
             coverImage: body.coverImage,
             rating: body.rating,
             description: body.description,
-            genre:{
+            genre: {
                 connect: {
                     id: body.genre
                 }
@@ -46,11 +46,11 @@ export class MoviesService {
     }
 
     async verifyGenres(genre: string): Promise<boolean> {
-            const isGenreValid = await this.genreRepo.findGenreById(genre)
-            if (!isGenreValid) {
-                return false
+        const isGenreValid = await this.genreRepo.findGenreById(genre)
+        if (!isGenreValid) {
+            return false
 
-            }
+        }
         return true
     }
 
@@ -59,13 +59,13 @@ export class MoviesService {
         return await this.movieRepo.findAllMovies(skip, this.moviesPerPage)
     }
 
-    async getMovieByGenre(genres: string, page: number = 1):Promise<Movie[]> {
+    async getMovieByGenre(genres: string, page: number = 1): Promise<Movie[]> {
         const skip = page === 1 ? 0 : (page - 1) * this.moviesPerPage
         const trimmedGenres = genres ? genres.split(',') : []
         return await this.movieRepo.findAllMoviesByGenre(trimmedGenres, skip, this.moviesPerPage)
     }
 
-    async findMovie(title: string, page: number = 1 ):Promise<Movie[]> {
+    async findMovie(title: string, page: number = 1): Promise<Movie[]> {
         const skip = page === 1 ? 0 : (page - 1) * this.moviesPerPage
         return await this.movieRepo.findMovieByTitle(title, skip, this.moviesPerPage)
     }

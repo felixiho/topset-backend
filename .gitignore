@@ -3,6 +3,5 @@ node_modules
 build/
 out/ 
 yarn-error.log
-.vscode
-.env 
+.vscode 
 dist/ 

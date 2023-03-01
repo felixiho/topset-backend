@@ -38,6 +38,13 @@ export class MoviesController {
         return await this.movieService.getAllMovies(page)
     }
 
+    @Get('/movies/genre')
+    async getMoviesByGenre(
+        @Req() req: Request,
+        @QueryParam('genres') genres: string
+    ):Promise<Movie[]>{ 
+        return await this.movieService.getMovieByGenre(genres)
+    }
 
     @Get('/movies/:title')
     async findMovieByTitle(
@@ -47,11 +54,4 @@ export class MoviesController {
         return await this.movieService.findMovie(title)
     }
 
-    @Get('/movies/genre')
-    async getMoviesByGenre(
-        @Req() req: Request,
-        @QueryParam('genres') genres: string
-    ):Promise<Movie[]>{
-        return await this.movieService.getMovieByGenre(genres)
-    }
 }
