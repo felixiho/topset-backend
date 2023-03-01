@@ -2,7 +2,12 @@
   "name": "topset-backend",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "nodemon", 
+    "dev": "nodemon",
+    "dev:start:public": "ts-node ./src/server/public.ts",
+    "dev:start:internal": "ts-node ./src/server/internal.ts",
+    "dev:concurrently": "concurrently yarn:dev:start:*",  
+    "start:public": "node ./build/server/public.js",
+    "start:internal": "node ./build/server/internal.js",
     "prisma": "dotenv -e .secret -e .env prisma"
   },
   "dependencies": { 
